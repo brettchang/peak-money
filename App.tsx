@@ -14,11 +14,15 @@ import { PicksSavingsPage } from './pages/PicksSavingsPage';
 import { PicksCreditCardsPage } from './pages/PicksCreditCardsPage';
 import { SavingsReviewPage } from './pages/SavingsReviewPage';
 import { CreditCardReviewPage } from './pages/CreditCardReviewPage';
+import { StudioPage } from './pages/StudioPage';
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Sanity Studio - outside Layout */}
+        <Route path="/studio/*" element={<StudioPage />} />
+
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="news" element={<NewsPage />} />
