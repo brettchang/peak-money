@@ -1,9 +1,9 @@
 import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { Calendar, User, ChevronLeft, ArrowRight } from 'lucide-react';
+import { Calendar, User, ChevronLeft, ArrowRight, Loader2 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { BreadcrumbSchema } from '../components/BreadcrumbSchema';
-import { NEWS_DATA } from '../constants';
+import { useNewsArticle, useNewsArticles } from '../lib/useNews';
 import { NewsArticle } from '../types';
 
 // Schema.org Article markup for LLM/SEO
@@ -40,7 +40,17 @@ const ArticleSchema: React.FC<{ article: NewsArticle }> = ({ article }) => {
 
 export const ArticlePage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  const article = NEWS_DATA.find(a => a.slug === slug);
+  const { article, loading } = useNewsArticle(slug || '');
+  const { articles: allArticles } = useNewsArticles();
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-peak-darkGray" />
+      </div>
+    );
+  }
 
   // Redirect to news page if article not found
   if (!article) {
@@ -49,7 +59,7 @@ export const ArticlePage: React.FC = () => {
 
   // Get related articles
   const relatedArticles = article.relatedArticles
-    ?.map(id => NEWS_DATA.find(a => a.id === id))
+    ?.map(id => allArticles.find(a => a.id === id))
     .filter((a): a is NewsArticle => a !== undefined) || [];
 
   return (

@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, User, ArrowRight } from 'lucide-react';
+import { Calendar, User, ArrowRight, Loader2 } from 'lucide-react';
 import { SEO } from '../components/SEO';
-import { NEWS_DATA } from '../constants';
+import { useNewsArticles } from '../lib/useNews';
 
 export const NewsPage: React.FC = () => {
-  const featuredArticle = NEWS_DATA.find(a => a.featured) || NEWS_DATA[0];
-  const otherArticles = NEWS_DATA.filter(a => a.id !== featuredArticle?.id);
+  const { articles, loading } = useNewsArticles();
+  const featuredArticle = articles.find(a => a.featured) || articles[0];
+  const otherArticles = articles.filter(a => a.id !== featuredArticle?.id);
 
   return (
     <>
@@ -28,8 +29,15 @@ export const NewsPage: React.FC = () => {
         </p>
       </section>
 
+      {/* Loading State */}
+      {loading && (
+        <div className="flex justify-center py-12">
+          <Loader2 className="w-8 h-8 animate-spin text-peak-darkGray" />
+        </div>
+      )}
+
       {/* Featured Article */}
-      {featuredArticle && (
+      {!loading && featuredArticle && (
         <section className="max-w-6xl mx-auto px-6 pb-12">
           <Link
             to={`/news/${featuredArticle.slug}`}
