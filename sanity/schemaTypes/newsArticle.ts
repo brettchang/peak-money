@@ -74,11 +74,18 @@ export const newsArticle = defineType({
     }),
     defineField({
       name: 'image',
-      title: 'Featured Image',
+      title: 'Featured Image (Upload)',
       type: 'image',
+      description: 'Upload an image to Sanity',
       options: {
         hotspot: true,
       },
+    }),
+    defineField({
+      name: 'imageUrl',
+      title: 'Featured Image (URL)',
+      type: 'url',
+      description: 'Or paste an external image URL (e.g., Unsplash)',
     }),
     defineField({
       name: 'imageCaption',
