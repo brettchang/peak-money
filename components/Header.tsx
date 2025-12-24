@@ -18,8 +18,9 @@ export const Header: React.FC = () => {
     <header className="border-b border-peak-black/10 sticky top-0 bg-[#F9F8F4] z-50">
       {/* Main Header */}
       <div className="py-6">
-        <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center space-x-4">
+        <div className="max-w-6xl mx-auto px-6 flex items-center">
+          {/* Left side - fixed width for balance */}
+          <div className="flex-1 flex items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="md:hidden"
@@ -33,6 +34,7 @@ export const Header: React.FC = () => {
             </button>
           </div>
 
+          {/* Center - Logo */}
           <Link to="/" className="text-center">
             <h1 className="text-4xl font-serif tracking-tight leading-none text-peak-black">
               Peak<span className="text-peak-darkGray/60 italic ml-1">Money</span>
@@ -42,7 +44,8 @@ export const Header: React.FC = () => {
             </p>
           </Link>
 
-          <div className="flex items-center space-x-4">
+          {/* Right side - fixed width for balance */}
+          <div className="flex-1 flex items-center justify-end space-x-4">
             <button className="hidden md:block text-sm font-sans font-medium border-b border-peak-black pb-0.5 hover:border-transparent transition-all">
               Subscribe
             </button>
