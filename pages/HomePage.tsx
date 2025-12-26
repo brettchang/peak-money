@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { QuickVerdict } from '../components/QuickVerdict';
 import { TruthTable } from '../components/TruthTable';
 import { ReviewCards } from '../components/ReviewCards';
 import { FAQ } from '../components/FAQ';
@@ -63,8 +62,6 @@ export const HomePage: React.FC = () => {
           </section>
         </Link>
       )}
-
-      <QuickVerdict />
 
       {/* News Section - remaining articles */}
       {remainingArticles.length > 0 && <NewsSection articles={remainingArticles} />}
