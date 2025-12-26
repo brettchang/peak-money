@@ -53,7 +53,7 @@ export interface SanitySavingsAccount {
   withdrawalLimit?: string
   peakVerdict: string
   detailedReview: string
-  fullReview?: string[]
+  fullReview?: any[] // Portable Text blocks
   bestFor: string
   pros: string[]
   cons: string[]
@@ -77,7 +77,7 @@ export interface SanityCreditCard {
   insuranceBenefits?: string[]
   peakVerdict: string
   detailedReview: string
-  fullReview?: string[]
+  fullReview?: any[] // Portable Text blocks
   bestFor: string
   pros: string[]
   cons: string[]
@@ -85,6 +85,14 @@ export interface SanityCreditCard {
   cardImageUrl?: string
   affiliateUrl?: string
   sortOrder?: number
+}
+
+// Helper to convert Portable Text blocks to plain text strings
+export function portableTextToStrings(blocks: any[] | undefined): string[] {
+  if (!blocks) return []
+  return blocks.map((block: any) =>
+    block.children?.map((child: any) => child.text).join('') || ''
+  ).filter(Boolean)
 }
 
 // Queries

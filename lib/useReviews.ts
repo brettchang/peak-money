@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { client, queries, type SanitySavingsAccount, type SanityCreditCard } from './sanity'
+import { client, queries, portableTextToStrings, type SanitySavingsAccount, type SanityCreditCard } from './sanity'
 import { ACCOUNT_DATA, CREDIT_CARD_DATA } from '../constants'
 import type { SavingsAccount, CreditCard } from '../types'
 
@@ -18,7 +18,7 @@ function transformSavingsAccount(account: SanitySavingsAccount): SavingsAccount 
     withdrawalLimit: account.withdrawalLimit,
     peakVerdict: account.peakVerdict,
     detailedReview: account.detailedReview,
-    fullReview: account.fullReview || [],
+    fullReview: portableTextToStrings(account.fullReview),
     bestFor: account.bestFor,
     pros: account.pros || [],
     cons: account.cons || [],
@@ -40,7 +40,7 @@ function transformCreditCard(card: SanityCreditCard): CreditCard {
     insuranceBenefits: card.insuranceBenefits,
     peakVerdict: card.peakVerdict,
     detailedReview: card.detailedReview,
-    fullReview: card.fullReview || [],
+    fullReview: portableTextToStrings(card.fullReview),
     bestFor: card.bestFor,
     pros: card.pros || [],
     cons: card.cons || [],

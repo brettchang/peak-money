@@ -84,8 +84,8 @@ export const savingsAccount = defineType({
       name: 'fullReview',
       title: 'Full Review',
       type: 'array',
-      of: [{ type: 'text' }],
-      description: 'Full review paragraphs',
+      of: [{ type: 'block' }],
+      description: 'Full review content with rich text formatting',
     }),
     defineField({
       name: 'bestFor',
