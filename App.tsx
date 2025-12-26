@@ -9,9 +9,9 @@ import { SavingsComparisonsPage } from './pages/SavingsComparisonsPage';
 import { CreditCardsComparisonsPage } from './pages/CreditCardsComparisonsPage';
 import { FAQPage } from './pages/FAQPage';
 import { FAQQuestionPage } from './pages/FAQQuestionPage';
-import { PicksIndexPage } from './pages/PicksIndexPage';
-import { PicksSavingsPage } from './pages/PicksSavingsPage';
-import { PicksCreditCardsPage } from './pages/PicksCreditCardsPage';
+import { AnswersIndexPage } from './pages/AnswersIndexPage';
+import { AnswersCategoryPage } from './pages/AnswersCategoryPage';
+import { AnswerPage } from './pages/AnswerPage';
 import { SavingsReviewPage } from './pages/SavingsReviewPage';
 import { CreditCardReviewPage } from './pages/CreditCardReviewPage';
 import { StudioPage } from './pages/StudioPage';
@@ -32,9 +32,9 @@ const App: React.FC = () => {
           <Route path="comparisons/credit-cards" element={<CreditCardsComparisonsPage />} />
           <Route path="faq" element={<FAQPage />} />
           <Route path="faq/:editionSlug/:questionSlug" element={<FAQQuestionPage />} />
-          <Route path="picks" element={<PicksIndexPage />} />
-          <Route path="picks/savings" element={<PicksSavingsPage />} />
-          <Route path="picks/credit-cards" element={<PicksCreditCardsPage />} />
+          <Route path="answers" element={<AnswersIndexPage />} />
+          <Route path="answers/:categorySlug" element={<AnswersCategoryPage />} />
+          <Route path="answers/:categorySlug/:answerSlug" element={<AnswerPage />} />
           <Route path="reviews/savings/:slug" element={<SavingsReviewPage />} />
           <Route path="reviews/credit-cards/:slug" element={<CreditCardReviewPage />} />
         </Route>

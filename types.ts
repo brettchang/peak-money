@@ -79,3 +79,31 @@ export interface NewsArticle {
   featured?: boolean;
   relatedArticles?: string[];
 }
+
+export interface Answer {
+  id: string;
+  slug: string;
+  question: string;
+  shortAnswer: string;
+  recommendation: {
+    productId: string;
+    reasoning: string;
+  };
+  runnerUp?: {
+    productId: string;
+    reasoning: string;
+  };
+  considerations: string[];
+  fullAnswer: string[];
+  lastUpdated: string;
+  relatedAnswers?: string[];
+}
+
+export interface AnswerCategory {
+  id: string;
+  slug: string;
+  name: string;
+  description: string;
+  icon: string;
+  answers: Answer[];
+}

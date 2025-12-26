@@ -1,4 +1,4 @@
-import { SavingsAccount, CreditCard, ProductCategory, NewsArticle, FAQEdition } from './types';
+import { SavingsAccount, CreditCard, ProductCategory, NewsArticle, FAQEdition, AnswerCategory } from './types';
 
 export const PRODUCT_CATEGORIES: ProductCategory[] = [
   {
@@ -534,6 +534,355 @@ export const FAQ_EDITIONS: FAQEdition[] = [
         ],
         relatedQuestions: ["q11", "q12"],
         sources: ["CRA TFSA Guide", "CRA RRSP Guide"]
+      }
+    ]
+  }
+];
+
+export const ANSWER_CATEGORIES: AnswerCategory[] = [
+  {
+    id: 'savings',
+    slug: 'savings',
+    name: 'High-Interest Savings Accounts',
+    description: 'Find the right savings account for your situation',
+    icon: 'PiggyBank',
+    answers: [
+      {
+        id: 'a1',
+        slug: 'best-hisa-canada',
+        question: 'What is the best high-interest savings account in Canada?',
+        shortAnswer: 'WealthSimple Cash is the best high-interest savings account in Canada, offering 4% interest with no fees, no minimum balance, and full CDIC insurance.',
+        recommendation: {
+          productId: '01',
+          reasoning: 'WealthSimple Cash combines the highest everyday interest rate (4%) with zero fees, unlimited transactions, and a seamless mobile experience. Unlike promotional rates that expire, this is the everyday rate on all balances.'
+        },
+        runnerUp: {
+          productId: '04',
+          reasoning: 'Neo Financial matches the 4% rate and offers excellent cashback rewards through their credit card ecosystem, making it ideal for those who want an all-in-one financial platform.'
+        },
+        considerations: [
+          'Do you need physical branch access? Digital banks like WealthSimple have no branches.',
+          'Are you comfortable with app-based banking? The best rates are from mobile-first institutions.',
+          'Do you need to hold more than $100,000? Consider splitting across institutions for full CDIC coverage.',
+          'Will you be making frequent withdrawals? Ensure the account has unlimited free transactions.'
+        ],
+        fullAnswer: [
+          'The best high-interest savings account in Canada for 2025 is WealthSimple Cash. It offers a 4% interest rate on all balances, with no monthly fees, no minimum balance requirements, and full CDIC insurance protection.',
+          'What sets WealthSimple apart is the combination of top-tier rates with genuine usability. You get a Visa debit card, unlimited free e-Transfers, bill payments, and direct deposit capabilities. There\'s no need to maintain a separate chequing account—WealthSimple Cash does it all.',
+          'The 4% rate is not a promotional teaser. It\'s the everyday rate paid on every dollar from the first cent. In an industry built on fine print and expiring promotions, this simplicity is refreshing and valuable.',
+          'For most Canadians, WealthSimple Cash should be the default choice for emergency funds and short-term savings. The only trade-off is the lack of physical branches, which matters less every year as banking becomes increasingly digital.'
+        ],
+        lastUpdated: 'December 2025',
+        relatedAnswers: ['a2', 'a4']
+      },
+      {
+        id: 'a2',
+        slug: 'best-for-large-balances',
+        question: 'What\'s the best savings account for large balances over $100,000?',
+        shortAnswer: 'For balances over $100,000, split your funds between WealthSimple Cash and EQ Bank to maximize CDIC insurance coverage while earning top rates.',
+        recommendation: {
+          productId: '01',
+          reasoning: 'WealthSimple Cash offers 4% on all balances with CDIC coverage up to $100,000. For amounts exceeding this, you should open accounts at multiple CDIC-member institutions.'
+        },
+        runnerUp: {
+          productId: '02',
+          reasoning: 'EQ Bank provides a stable 2.50% rate with a long track record and seamless GIC integration for laddering strategies. Excellent as a second institution for CDIC diversification.'
+        },
+        considerations: [
+          'CDIC only covers $100,000 per depositor per member institution—split large balances.',
+          'Consider a GIC ladder for funds you won\'t need for 1-5 years to lock in higher rates.',
+          'Joint accounts and registered accounts (TFSA, RRSP) each have separate $100,000 coverage.',
+          'Ensure each institution is a separate CDIC member, not just a different brand name.'
+        ],
+        fullAnswer: [
+          'For balances exceeding $100,000, the most important consideration is CDIC insurance coverage. Each CDIC member institution covers deposits up to $100,000 per depositor, per category. To fully protect large balances, you need accounts at multiple institutions.',
+          'Our recommended strategy: Keep up to $100,000 at WealthSimple Cash (4% rate), then open an EQ Bank account for the next $100,000 (2.50% rate). Both are CDIC-insured through different member institutions.',
+          'For even larger balances, consider adding Neo Financial (4% rate, different CDIC member) and using registered accounts (TFSA, RRSP) which each have separate $100,000 coverage at each institution.',
+          'If you have substantial funds you won\'t need for 1-5 years, GIC laddering at EQ Bank can lock in competitive rates while maintaining CDIC protection and providing regular maturity dates for liquidity.'
+        ],
+        lastUpdated: 'December 2025',
+        relatedAnswers: ['a1', 'a5']
+      },
+      {
+        id: 'a3',
+        slug: 'best-tfsa-savings',
+        question: 'What\'s the best high-interest savings account for a TFSA?',
+        shortAnswer: 'EQ Bank\'s TFSA Savings Account offers 2.50% tax-free interest with no fees, making it the best choice for TFSA cash holdings.',
+        recommendation: {
+          productId: '02',
+          reasoning: 'EQ Bank offers a dedicated TFSA savings account with competitive rates and seamless integration with their GIC products for tax-free growth. Their platform stability makes them ideal for registered accounts.'
+        },
+        runnerUp: {
+          productId: '01',
+          reasoning: 'WealthSimple also offers TFSA accounts with competitive rates and a superior mobile experience, though their TFSA-specific rate may differ from their standard Cash account.'
+        },
+        considerations: [
+          'Interest earned in a TFSA is completely tax-free—maximize your contribution room.',
+          'Consider whether you want cash savings or investments in your TFSA based on your goals.',
+          'TFSA contribution room for 2025 is $7,000; unused room carries forward.',
+          'Withdrawals restore contribution room the following January 1—don\'t re-contribute in the same year.'
+        ],
+        fullAnswer: [
+          'For holding cash in a TFSA, EQ Bank\'s TFSA Savings Account is our top pick. It offers a competitive 2.50% interest rate that grows completely tax-free, with no monthly fees or minimum balance requirements.',
+          'The tax-free nature of TFSA growth makes rate optimization even more valuable. Every percentage point you earn is yours to keep—no CRA cut. This makes choosing a high-rate TFSA savings account particularly impactful.',
+          'EQ Bank\'s platform also integrates seamlessly with their TFSA GIC products. If you\'re building a tax-free nest egg, you can easily ladder GICs within your TFSA for higher locked-in rates while keeping some funds liquid in savings.',
+          'One important note: If you\'re investing for long-term growth (5+ years), consider using your TFSA for investments rather than cash savings. The tax-free compound growth on equities can be more valuable than tax-free interest.'
+        ],
+        lastUpdated: 'December 2025',
+        relatedAnswers: ['a1', 'a2']
+      },
+      {
+        id: 'a4',
+        slug: 'best-no-minimum',
+        question: 'What\'s the best savings account with no minimum balance?',
+        shortAnswer: 'WealthSimple Cash has no minimum balance requirement and pays 4% interest on every dollar from the first cent.',
+        recommendation: {
+          productId: '01',
+          reasoning: 'WealthSimple Cash pays the full 4% rate regardless of your balance—whether you have $10 or $100,000. No tiers, no minimums, no gotchas.'
+        },
+        runnerUp: {
+          productId: '02',
+          reasoning: 'EQ Bank also has no minimum balance and pays 2.50% on all amounts. Their established track record appeals to more conservative savers.'
+        },
+        considerations: [
+          'Some banks advertise high rates but require $5,000+ to earn them—avoid these.',
+          'Tiered rate structures often pay near-zero on lower balances.',
+          'No-minimum accounts are ideal for starting an emergency fund from scratch.',
+          'Look for accounts that also have no monthly fees to avoid erosion of small balances.'
+        ],
+        fullAnswer: [
+          'WealthSimple Cash is the best savings account with no minimum balance requirement. You earn the full 4% interest rate on every dollar, starting from the first cent. There are no balance tiers, no monthly fees, and no minimum deposit requirements.',
+          'This is particularly important for people just starting to save. Many traditional banks require $1,000-$5,000 to earn their advertised rates, paying near-zero on smaller balances. WealthSimple treats all depositors equally.',
+          'The no-minimum structure also makes WealthSimple ideal for building an emergency fund gradually. You can start with whatever you can spare and earn competitive interest immediately, rather than waiting until you hit some arbitrary threshold.',
+          'Combined with no monthly fees, your small balance will actually grow rather than being eaten away by maintenance charges—a problem with many traditional bank savings accounts.'
+        ],
+        lastUpdated: 'December 2025',
+        relatedAnswers: ['a1', 'a5']
+      },
+      {
+        id: 'a5',
+        slug: 'best-emergency-fund',
+        question: 'What\'s the best savings account for an emergency fund?',
+        shortAnswer: 'WealthSimple Cash is ideal for emergency funds: 4% interest, instant access via debit card, unlimited free withdrawals, and CDIC insurance.',
+        recommendation: {
+          productId: '01',
+          reasoning: 'Emergency funds need to be accessible instantly while still earning competitive returns. WealthSimple Cash delivers both: 4% interest with a Visa debit card for immediate access anywhere.'
+        },
+        runnerUp: {
+          productId: '02',
+          reasoning: 'EQ Bank offers solid rates with proven stability and unlimited withdrawals. Their longer track record provides peace of mind for risk-averse savers.'
+        },
+        considerations: [
+          'Emergency funds should cover 3-6 months of essential expenses.',
+          'Prioritize accessibility over the highest possible rate—you need instant access in emergencies.',
+          'Avoid accounts with withdrawal limits or fees that could delay access to your money.',
+          'Keep emergency funds separate from daily spending to avoid accidental depletion.'
+        ],
+        fullAnswer: [
+          'The best account for an emergency fund is WealthSimple Cash. It perfectly balances the two critical requirements: earning competitive interest (4%) while maintaining instant accessibility through a Visa debit card and unlimited free e-Transfers.',
+          'Emergency funds have unique requirements. Unlike long-term savings, you need to be able to access this money immediately—at 2 AM on a Sunday if your car breaks down or you face an unexpected medical expense. WealthSimple\'s debit card works anywhere Visa is accepted.',
+          'The 4% interest rate means your emergency fund isn\'t just sitting idle. On a $15,000 emergency fund (roughly 3 months of expenses for many Canadians), you\'ll earn $600 per year—real money that helps your safety net grow.',
+          'We recommend keeping emergency funds in a separate account from your daily spending. This psychological separation helps prevent accidental spending while ensuring the money is there when you truly need it.'
+        ],
+        lastUpdated: 'December 2025',
+        relatedAnswers: ['a1', 'a4']
+      },
+      {
+        id: 'a6',
+        slug: 'best-joint-account',
+        question: 'What\'s the best joint savings account in Canada?',
+        shortAnswer: 'EQ Bank offers the best joint savings account with 2.50% interest, easy co-owner management, and separate CDIC coverage for each account holder.',
+        recommendation: {
+          productId: '02',
+          reasoning: 'EQ Bank\'s joint account setup is straightforward, both partners can manage the account independently, and CDIC covers each depositor\'s share up to $100,000.'
+        },
+        runnerUp: {
+          productId: '03',
+          reasoning: 'Tangerine offers easy joint account setup with Scotiabank\'s infrastructure, though the base rate (0.70%) is low unless you catch a promotional period.'
+        },
+        considerations: [
+          'Joint accounts provide separate CDIC coverage—$100,000 per person, so $200,000 total coverage.',
+          'Both account holders typically have full access—ensure you trust your co-owner completely.',
+          'Consider whether you want a joint account or separate accounts with authorized user access.',
+          'Joint accounts become complicated in separation—understand the legal implications.'
+        ],
+        fullAnswer: [
+          'EQ Bank offers the best joint savings account for couples or family members who want to save together. The account earns 2.50% interest with no fees, and both account holders can manage the account independently through the app.',
+          'A key benefit of joint accounts is enhanced CDIC coverage. Each depositor\'s share is insured separately up to $100,000, meaning a joint account between two people has $200,000 in coverage—double what an individual account provides.',
+          'EQ Bank\'s joint account setup is straightforward through their digital platform. Both partners need to complete identity verification, but the process is smooth and typically takes less than 15 minutes.',
+          'One important consideration: joint accounts give both parties full access and rights to the funds. In the event of relationship breakdown, this can become complicated. Ensure you\'re comfortable with this arrangement before combining finances.'
+        ],
+        lastUpdated: 'December 2025',
+        relatedAnswers: ['a1', 'a2']
+      }
+    ]
+  },
+  {
+    id: 'credit-cards',
+    slug: 'credit-cards',
+    name: 'Credit Cards',
+    description: 'Find the right credit card for your spending habits',
+    icon: 'CreditCard',
+    answers: [
+      {
+        id: 'a7',
+        slug: 'best-no-fee',
+        question: 'What\'s the best no-fee credit card in Canada?',
+        shortAnswer: 'The Tangerine Money-Back Credit Card is the best no-fee card in Canada, offering 2% cashback on 2-3 categories of your choice with no annual fee.',
+        recommendation: {
+          productId: 'cc02',
+          reasoning: 'Tangerine lets you pick your own 2% cashback categories (3 if you have a Tangerine savings account). No annual fee, no complicated point systems—just straightforward cashback.'
+        },
+        considerations: [
+          'No-fee cards can outperform premium cards if you don\'t spend enough to offset annual fees.',
+          'Choose categories that match your actual spending patterns for maximum return.',
+          'Outside your chosen categories, Tangerine pays only 0.5%—know where your money goes.',
+          'No-fee cards typically have lower credit limits and fewer perks than premium options.'
+        ],
+        fullAnswer: [
+          'The Tangerine Money-Back Credit Card is the best no-fee credit card in Canada. It offers 2% cashback on two spending categories of your choice (three if you have a Tangerine savings account), with no annual fee ever.',
+          'What makes Tangerine special is the category flexibility. You choose from groceries, restaurants, gas, drug stores, entertainment, recurring bills, and more. This lets you optimize for your actual spending rather than hoping your habits match predetermined bonus categories.',
+          'The no-annual-fee structure means every dollar of cashback is pure profit. There\'s no breakeven calculation—even light spenders benefit. For someone philosophically opposed to paying credit card fees, Tangerine is the clear winner.',
+          'The trade-off is the 0.5% rate on non-category spending, which is weak. If your spending is diverse, a flat-rate card might serve you better. But for focused spenders who can concentrate purchases in 2-3 categories, Tangerine delivers excellent value.'
+        ],
+        lastUpdated: 'December 2025',
+        relatedAnswers: ['a8', 'a11']
+      },
+      {
+        id: 'a8',
+        slug: 'best-for-groceries',
+        question: 'What\'s the best credit card for groceries in Canada?',
+        shortAnswer: 'The Scotiabank Momentum Visa Infinite offers the best grocery rewards at 4% cashback on all grocery store purchases.',
+        recommendation: {
+          productId: 'cc01',
+          reasoning: 'Scotiabank Momentum Visa Infinite pays 4% on groceries—the highest rate available in Canada. For a family spending $1,000/month on groceries, that\'s $480/year in cashback.'
+        },
+        runnerUp: {
+          productId: 'cc03',
+          reasoning: 'The Amex Cobalt Card earns 5x points on groceries, which can be worth more than 5% when transferred to Aeroplan for travel. Best for points optimizers willing to accept Amex acceptance limitations.'
+        },
+        considerations: [
+          'The $120 annual fee on Scotiabank Momentum is easily offset if you spend $250+/month on groceries.',
+          'Amex Cobalt earns 5x points but Amex isn\'t accepted everywhere—have a backup card.',
+          'Grocery category typically excludes Costco, Walmart Supercenters, and wholesale clubs.',
+          'Some cards cap category bonuses—Scotiabank Momentum has no cap on grocery earnings.'
+        ],
+        fullAnswer: [
+          'The Scotiabank Momentum Visa Infinite is the best credit card for grocery shopping in Canada. It offers an unmatched 4% cashback rate on all grocery store purchases with no earning caps.',
+          'Let\'s do the math: A household spending $1,000/month on groceries earns $480/year in cashback on that category alone. After the $120 annual fee, that\'s still $360 in net value—just from groceries. Add 4% on recurring bills and 2% on gas, and the total value grows substantially.',
+          'The Amex Cobalt Card technically earns more (5x points) on groceries, but those points require strategic redemption to realize full value, and Amex isn\'t accepted at many smaller grocery stores. Scotiabank Momentum\'s straightforward cashback works everywhere Visa is accepted.',
+          'One important note: \"Grocery stores\" typically means dedicated grocers like Loblaws, Sobeys, Metro, and No Frills. Costco, Walmart Supercenters, and warehouse clubs usually don\'t qualify. Check the merchant category if you shop at non-traditional grocers.'
+        ],
+        lastUpdated: 'December 2025',
+        relatedAnswers: ['a7', 'a9']
+      },
+      {
+        id: 'a9',
+        slug: 'best-travel-rewards',
+        question: 'What\'s the best travel rewards credit card in Canada?',
+        shortAnswer: 'The American Express Cobalt Card is the best travel rewards card, earning 5x points on food that transfer 1:1 to Aeroplan for premium travel redemptions.',
+        recommendation: {
+          productId: 'cc03',
+          reasoning: 'Amex Cobalt earns 5x points on dining and groceries, transferable 1:1 to Aeroplan. This combination of high earn rates and flexible transfers makes it unmatched for travel enthusiasts.'
+        },
+        runnerUp: {
+          productId: 'cc04',
+          reasoning: 'CIBC Aventura Visa Infinite offers solid 1.5x earning everywhere plus comprehensive travel insurance. Better for those who want simplicity over optimization.'
+        },
+        considerations: [
+          'Amex acceptance is limited in Canada—always carry a Visa/Mastercard backup.',
+          'Transfer partners matter: Cobalt points transfer to Aeroplan, Marriott Bonvoy, and others.',
+          'Travel insurance coverage varies significantly—review policy details if this matters to you.',
+          'Consider your actual travel patterns: frequent flyers benefit more from points optimization.'
+        ],
+        fullAnswer: [
+          'The American Express Cobalt Card is the best travel rewards credit card in Canada for points maximizers. Its 5x earn rate on food and drinks—combined with 1:1 transfers to Aeroplan—creates exceptional value for travel redemptions.',
+          'Here\'s why Cobalt wins: 5x points on groceries at a store where you spend $800/month generates 48,000 points annually. Transferred to Aeroplan, those points can be worth $700+ in flight value—far exceeding the $156 annual fee.',
+          'The transfer flexibility is key. Unlike airline co-branded cards that lock you into one program, Cobalt points transfer to Aeroplan, Marriott Bonvoy, British Airways, and other partners. This optionality protects against devaluations and provides redemption flexibility.',
+          'The main drawback is Amex acceptance. Many smaller merchants, Costco, and some restaurants don\'t take Amex. You\'ll need a Visa or Mastercard as a backup for these situations.'
+        ],
+        lastUpdated: 'December 2025',
+        relatedAnswers: ['a8', 'a12']
+      },
+      {
+        id: 'a10',
+        slug: 'best-for-beginners',
+        question: 'What\'s the best first credit card for beginners?',
+        shortAnswer: 'The Tangerine Money-Back Credit Card is the best starter card: no annual fee, no income requirement, and simple 2% cashback on categories you choose.',
+        recommendation: {
+          productId: 'cc02',
+          reasoning: 'Tangerine\'s no-fee card has accessible approval requirements, teaches good credit habits, and provides real rewards without complexity or annual fee risk.'
+        },
+        considerations: [
+          'Your first card builds your credit history—pay the full balance every month without exception.',
+          'Start with a low credit limit to avoid overspending while you learn.',
+          'Avoid cards with annual fees until you understand your spending patterns.',
+          'Set up autopay for at least the minimum payment to never miss a due date.'
+        ],
+        fullAnswer: [
+          'The Tangerine Money-Back Credit Card is the best first credit card for beginners in Canada. It has no annual fee, reasonable approval requirements, and teaches you how rewards cards work without the complexity of points or the risk of fee erosion.',
+          'For someone new to credit, the priority should be building good habits: paying your full balance monthly, tracking spending, and never missing a payment. Tangerine\'s straightforward cashback makes it easy to understand what you\'re earning without getting lost in points valuations.',
+          'The no-annual-fee structure is crucial for beginners. Premium cards with $100+ fees only make sense if you spend enough to offset the cost—something hard to predict before you have spending history. With Tangerine, there\'s no fee to worry about while you figure out your patterns.',
+          'Start with a modest credit limit, set up autopay for the full balance, and use the card for regular purchases you\'d make anyway. In 6-12 months, you\'ll have established credit history and understand your spending well enough to consider other cards.'
+        ],
+        lastUpdated: 'December 2025',
+        relatedAnswers: ['a7', 'a11']
+      },
+      {
+        id: 'a11',
+        slug: 'best-cashback',
+        question: 'What\'s the best cashback credit card in Canada?',
+        shortAnswer: 'The Scotiabank Momentum Visa Infinite is the best overall cashback card, offering 4% on groceries and recurring bills, 2% on gas and transit.',
+        recommendation: {
+          productId: 'cc01',
+          reasoning: 'Scotiabank Momentum\'s 4% rate on groceries and recurring bills covers where most Canadians spend most of their money. The category structure aligns with real household spending patterns.'
+        },
+        runnerUp: {
+          productId: 'cc02',
+          reasoning: 'Tangerine Money-Back offers 2% on your chosen categories with no annual fee—better for light spenders who can\'t offset Scotiabank\'s $120 fee.'
+        },
+        considerations: [
+          'Calculate your expected cashback vs. annual fee before choosing a premium card.',
+          'Category-based cards beat flat-rate cards if your spending is concentrated.',
+          'Scotiabank\'s 4% on recurring bills includes subscriptions, utilities, and streaming.',
+          'Don\'t carry a balance—20%+ interest rates will wipe out any cashback earnings.'
+        ],
+        fullAnswer: [
+          'The Scotiabank Momentum Visa Infinite is the best cashback credit card in Canada for households with typical spending patterns. Its 4% rate on groceries and recurring bills, plus 2% on gas and transit, targets the categories where most families spend most of their money.',
+          'The math is compelling: A household with $1,000/month groceries ($480 cashback), $200/month gas ($48), and $150/month subscriptions ($72) earns $600 annually. After the $120 fee, that\'s $480 in net cashback—and we haven\'t counted the welcome bonus.',
+          'For lighter spenders, the Tangerine Money-Back Card\'s no-fee structure may be better. If you can\'t spend enough to offset Scotiabank\'s $120 annual fee, Tangerine\'s 2% on chosen categories delivers better net value.',
+          'One crucial rule: cashback cards only make sense if you pay your balance in full every month. At 20%+ interest rates, carrying a balance for even one month can eliminate months of cashback earnings. Treat these cards as payment tools, not borrowing tools.'
+        ],
+        lastUpdated: 'December 2025',
+        relatedAnswers: ['a7', 'a8']
+      },
+      {
+        id: 'a12',
+        slug: 'best-for-gas',
+        question: 'What\'s the best credit card for gas in Canada?',
+        shortAnswer: 'The Scotiabank Momentum Visa Infinite offers 2% cashback on gas station purchases, combined with 4% on groceries for excellent overall value.',
+        recommendation: {
+          productId: 'cc01',
+          reasoning: 'While 2% on gas isn\'t the highest available, Scotiabank Momentum\'s combination of 2% gas + 4% groceries + 2% transit makes it the best overall card for drivers who also buy groceries.'
+        },
+        runnerUp: {
+          productId: 'cc02',
+          reasoning: 'Tangerine Money-Back lets you select gas as one of your 2% categories with no annual fee—ideal if you\'re a heavy driver but light grocery shopper.'
+        },
+        considerations: [
+          'Gas-specific cards rarely beat general rewards cards when you consider total spending.',
+          'Co-branded gas cards (Esso, Petro-Canada) have limited redemption flexibility.',
+          'Calculate your monthly gas spend—is a gas-optimized card worth the complexity?',
+          'Electric vehicle owners should skip gas rewards and optimize other categories.'
+        ],
+        fullAnswer: [
+          'For gas purchases specifically, the Scotiabank Momentum Visa Infinite earning 2% at gas stations is our top pick—but not because of the gas rate alone. The card\'s strength is combining solid gas rewards with excellent grocery (4%) and transit (2%) categories.',
+          'Here\'s the reality: unless you\'re a commercial driver, gas is probably 5-10% of your credit card spending. A card that earns 4% on gas but 1% everywhere else will likely earn less total cashback than a card with 2% on gas plus 4% on groceries.',
+          'Gas station co-branded cards (like Esso or Petro-Canada cards) often offer 3-4 cents per liter in savings, but lock you into one gas brand and offer poor rewards on other spending. The flexibility of a general cashback card usually wins.',
+          'If gas is your primary credit card expense and you want to optimize specifically for it, select it as one of your 2% categories on the no-fee Tangerine Money-Back Card. You\'ll get competitive gas rewards without paying an annual fee for categories you don\'t use.'
+        ],
+        lastUpdated: 'December 2025',
+        relatedAnswers: ['a8', 'a11']
       }
     ]
   }
