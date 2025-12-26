@@ -1,22 +1,32 @@
 import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { ChevronLeft, MessageCircleQuestion, ArrowRight } from 'lucide-react';
+import { ChevronLeft, MessageCircleQuestion, ArrowRight, Loader2 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { BreadcrumbSchema } from '../components/BreadcrumbSchema';
 import { FAQPageSchema } from '../components/FAQPageSchema';
 import { ANSWER_CATEGORIES } from '../constants';
+import { useAnswersByCategory } from '../lib/useAnswers';
 
 export const AnswersCategoryPage: React.FC = () => {
   const { categorySlug } = useParams<{ categorySlug: string }>();
 
   const category = ANSWER_CATEGORIES.find(c => c.slug === categorySlug);
+  const { answers, loading } = useAnswersByCategory(categorySlug || '');
 
   if (!category) {
     return <Navigate to="/answers" replace />;
   }
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="animate-spin text-peak-darkGray" size={32} />
+      </div>
+    );
+  }
+
   // Prepare FAQ data for schema
-  const faqData = category.answers.map(a => ({
+  const faqData = answers.map(a => ({
     question: a.question,
     answer: a.shortAnswer
   }));
@@ -64,7 +74,7 @@ export const AnswersCategoryPage: React.FC = () => {
       {/* Questions List */}
       <section className="max-w-4xl mx-auto px-6 pb-16">
         <div className="space-y-4">
-          {category.answers.map((answer) => (
+          {answers.map((answer) => (
             <Link
               key={answer.id}
               to={`/answers/${category.slug}/${answer.slug}`}

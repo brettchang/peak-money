@@ -1,11 +1,12 @@
 import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { ChevronLeft, Award, ArrowRight, CheckCircle, AlertCircle, Calendar } from 'lucide-react';
+import { ChevronLeft, Award, ArrowRight, CheckCircle, AlertCircle, Calendar, Loader2 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { BreadcrumbSchema } from '../components/BreadcrumbSchema';
 import { FAQPageSchema } from '../components/FAQPageSchema';
 import { ANSWER_CATEGORIES, ACCOUNT_DATA, CREDIT_CARD_DATA } from '../constants';
 import { SavingsAccount, CreditCard } from '../types';
+import { useAnswer, useAnswers } from '../lib/useAnswers';
 
 // Helper to get product by ID
 const getProduct = (productId: string): SavingsAccount | CreditCard | undefined => {
@@ -96,10 +97,23 @@ export const AnswerPage: React.FC = () => {
   const { categorySlug, answerSlug } = useParams<{ categorySlug: string; answerSlug: string }>();
 
   const category = ANSWER_CATEGORIES.find(c => c.slug === categorySlug);
-  const answer = category?.answers.find(a => a.slug === answerSlug);
+  const { answer, loading } = useAnswer(answerSlug || '');
+  const { answers: allAnswers } = useAnswers();
 
-  if (!category || !answer) {
+  if (!category) {
     return <Navigate to="/answers" replace />;
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="animate-spin text-peak-darkGray" size={32} />
+      </div>
+    );
+  }
+
+  if (!answer) {
+    return <Navigate to={`/answers/${categorySlug}`} replace />;
   }
 
   const recommendedProduct = getProduct(answer.recommendation.productId);
@@ -108,9 +122,13 @@ export const AnswerPage: React.FC = () => {
   // Get related answers
   const relatedAnswers = answer.relatedAnswers
     ?.map(id => {
-      for (const cat of ANSWER_CATEGORIES) {
-        const found = cat.answers.find(a => a.id === id);
-        if (found) return { ...found, categorySlug: cat.slug };
+      const found = allAnswers.find(a => a.id === id);
+      if (found) {
+        // Determine category from the found answer or use current
+        const answerCategory = ANSWER_CATEGORIES.find(c =>
+          c.answers.some(a => a.id === id)
+        );
+        return { ...found, categorySlug: answerCategory?.slug || categorySlug };
       }
       return null;
     })

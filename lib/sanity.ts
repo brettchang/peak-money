@@ -87,6 +87,29 @@ export interface SanityCreditCard {
   sortOrder?: number
 }
 
+// Type for Sanity answer (Expert Recommendation)
+export interface SanityAnswer {
+  _id: string
+  _type: 'answer'
+  question: string
+  slug: { current: string }
+  category: 'savings' | 'credit-cards'
+  shortAnswer: string
+  recommendation: {
+    productId: string
+    reasoning: string
+  }
+  runnerUp?: {
+    productId: string
+    reasoning: string
+  }
+  considerations: string[]
+  fullAnswer?: any[] // Portable Text blocks
+  lastUpdated: string
+  relatedAnswers?: { _id: string; question: string; slug: { current: string } }[]
+  sortOrder?: number
+}
+
 // Helper to convert Portable Text blocks to plain text strings
 export function portableTextToStrings(blocks: any[] | undefined): string[] {
   if (!blocks) return []
@@ -227,5 +250,66 @@ export const queries = {
     cardImageUrl,
     affiliateUrl,
     sortOrder
+  }`,
+
+  // Get all answers (Expert Recommendations)
+  allAnswers: `*[_type == "answer"] | order(sortOrder asc) {
+    _id,
+    question,
+    slug,
+    category,
+    shortAnswer,
+    recommendation,
+    runnerUp,
+    considerations,
+    fullAnswer,
+    lastUpdated,
+    sortOrder,
+    "relatedAnswers": relatedAnswers[]-> {
+      _id,
+      question,
+      slug
+    }
+  }`,
+
+  // Get answers by category
+  answersByCategory: `*[_type == "answer" && category == $category] | order(sortOrder asc) {
+    _id,
+    question,
+    slug,
+    category,
+    shortAnswer,
+    recommendation,
+    runnerUp,
+    considerations,
+    fullAnswer,
+    lastUpdated,
+    sortOrder,
+    "relatedAnswers": relatedAnswers[]-> {
+      _id,
+      question,
+      slug
+    }
+  }`,
+
+  // Get single answer by slug
+  answerBySlug: `*[_type == "answer" && slug.current == $slug][0] {
+    _id,
+    question,
+    slug,
+    category,
+    shortAnswer,
+    recommendation,
+    runnerUp,
+    considerations,
+    fullAnswer,
+    lastUpdated,
+    sortOrder,
+    "relatedAnswers": relatedAnswers[]-> {
+      _id,
+      question,
+      slug,
+      category
+    }
   }`,
 }
