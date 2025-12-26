@@ -6,9 +6,12 @@ import { FAQ } from '../components/FAQ';
 import { NewsSection } from '../components/NewsSection';
 import { GeoSchema } from '../components/GeoSchema';
 import { SEO } from '../components/SEO';
-import { ACCOUNT_DATA, NEWS_DATA, FAQ_EDITIONS } from '../constants';
+import { ACCOUNT_DATA, FAQ_EDITIONS } from '../constants';
+import { useNewsArticles } from '../lib/useNews';
 
 export const HomePage: React.FC = () => {
+  const { articles } = useNewsArticles();
+
   return (
     <>
       <SEO
@@ -35,7 +38,7 @@ export const HomePage: React.FC = () => {
       <QuickVerdict />
 
       {/* News Section added between Quick Verdict and Data for context */}
-      <NewsSection articles={NEWS_DATA} />
+      <NewsSection articles={articles} />
 
       <TruthTable data={ACCOUNT_DATA} />
 
