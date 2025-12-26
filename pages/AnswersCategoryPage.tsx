@@ -31,7 +31,7 @@ export const AnswersCategoryPage: React.FC = () => {
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: 'https://peakmoney.ca/' },
-          { name: 'Answers', url: 'https://peakmoney.ca/answers' },
+          { name: 'Expert Recommendations', url: 'https://peakmoney.ca/answers' },
           { name: category.name, url: `https://peakmoney.ca/answers/${category.slug}` },
         ]}
       />
@@ -44,7 +44,7 @@ export const AnswersCategoryPage: React.FC = () => {
           className="inline-flex items-center gap-1 text-sm text-peak-darkGray hover:text-peak-black transition-colors"
         >
           <ChevronLeft size={16} />
-          Back to Answers
+          Back to Expert Recommendations
         </Link>
       </nav>
 

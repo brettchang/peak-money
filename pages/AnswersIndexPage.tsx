@@ -18,7 +18,7 @@ export const AnswersIndexPage: React.FC = () => {
   return (
     <>
       <SEO
-        title="Answers: Expert Recommendations for Your Situation"
+        title="Expert Recommendations | Peak Money"
         description="Get direct answers to common Canadian personal finance questions. Our experts recommend the best savings accounts, credit cards, and financial products for your specific needs."
         canonical="https://peakmoney.ca/answers"
       />
@@ -26,10 +26,10 @@ export const AnswersIndexPage: React.FC = () => {
       {/* Page Header */}
       <section className="max-w-4xl mx-auto px-6 pt-20 pb-10 text-center">
         <span className="font-sans font-bold text-xs uppercase tracking-widest text-peak-darkGray mb-4 block">
-          Expert Recommendations
+          Peak Money
         </span>
         <h1 className="text-5xl md:text-6xl font-serif text-peak-black mb-6 leading-tight">
-          Answers
+          Expert Recommendations
         </h1>
         <p className="text-xl text-peak-darkGray font-serif italic max-w-2xl mx-auto">
           Direct answers to common questions. Our experts cut through the noise to recommend the best financial products for your specific situation.

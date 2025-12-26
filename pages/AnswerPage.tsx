@@ -132,7 +132,7 @@ export const AnswerPage: React.FC = () => {
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: 'https://peakmoney.ca/' },
-          { name: 'Answers', url: 'https://peakmoney.ca/answers' },
+          { name: 'Expert Recommendations', url: 'https://peakmoney.ca/answers' },
           { name: category.name, url: `https://peakmoney.ca/answers/${category.slug}` },
           { name: answer.question, url: `https://peakmoney.ca/answers/${category.slug}/${answer.slug}` },
         ]}
