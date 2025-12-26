@@ -1,9 +1,9 @@
 import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { ChevronLeft, Check, X, CreditCard as CreditCardIcon, Gift, Percent, Globe, Shield } from 'lucide-react';
+import { ChevronLeft, Check, X, CreditCard as CreditCardIcon, Gift, Percent, Globe, Shield, Loader2 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { BreadcrumbSchema } from '../components/BreadcrumbSchema';
-import { CREDIT_CARD_DATA } from '../constants';
+import { useCreditCard, useCreditCards } from '../lib/useReviews';
 import { CreditCard } from '../types';
 
 // Schema.org markup for credit card review
@@ -43,14 +43,23 @@ const CreditCardReviewSchema: React.FC<{ card: CreditCard }> = ({ card }) => {
 
 export const CreditCardReviewPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  const card = CREDIT_CARD_DATA.find(c => c.slug === slug);
+  const { card, loading } = useCreditCard(slug || '');
+  const { cards: allCards } = useCreditCards();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="animate-spin text-peak-darkGray" size={32} />
+      </div>
+    );
+  }
 
   if (!card) {
-    return <Navigate to="/picks/credit-cards" replace />;
+    return <Navigate to="/answers/credit-cards" replace />;
   }
 
   // Get other cards for comparison
-  const otherCards = CREDIT_CARD_DATA.filter(c => c.id !== card.id).slice(0, 2);
+  const otherCards = allCards.filter(c => c.id !== card.id).slice(0, 2);
 
   return (
     <>
@@ -62,7 +71,8 @@ export const CreditCardReviewPage: React.FC = () => {
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: 'https://peakmoney.ca/' },
-          { name: 'Credit Card Picks', url: 'https://peakmoney.ca/picks/credit-cards' },
+          { name: 'Expert Recommendations', url: 'https://peakmoney.ca/answers' },
+          { name: 'Credit Cards', url: 'https://peakmoney.ca/answers/credit-cards' },
           { name: `${card.institution} ${card.productName}`, url: `https://peakmoney.ca/reviews/credit-cards/${card.slug}` },
         ]}
       />
@@ -71,11 +81,11 @@ export const CreditCardReviewPage: React.FC = () => {
       {/* Breadcrumb */}
       <nav className="max-w-4xl mx-auto px-6 pt-8">
         <Link
-          to="/picks/credit-cards"
+          to="/answers/credit-cards"
           className="inline-flex items-center gap-1 text-sm text-peak-darkGray hover:text-peak-black transition-colors"
         >
           <ChevronLeft size={16} />
-          Back to Credit Card Picks
+          Back to Credit Cards
         </Link>
       </nav>
 

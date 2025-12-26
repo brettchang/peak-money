@@ -1,9 +1,9 @@
 import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { ChevronLeft, Check, X, Shield, TrendingUp, Zap, Building } from 'lucide-react';
+import { ChevronLeft, Check, X, Shield, TrendingUp, Zap, Building, Loader2 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { BreadcrumbSchema } from '../components/BreadcrumbSchema';
-import { ACCOUNT_DATA } from '../constants';
+import { useSavingsAccount, useSavingsAccounts } from '../lib/useReviews';
 import { SavingsAccount } from '../types';
 
 // Schema.org markup for savings account review
@@ -43,14 +43,23 @@ const SavingsReviewSchema: React.FC<{ account: SavingsAccount }> = ({ account })
 
 export const SavingsReviewPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  const account = ACCOUNT_DATA.find(a => a.slug === slug);
+  const { account, loading } = useSavingsAccount(slug || '');
+  const { accounts: allAccounts } = useSavingsAccounts();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="animate-spin text-peak-darkGray" size={32} />
+      </div>
+    );
+  }
 
   if (!account) {
     return <Navigate to="/comparisons" replace />;
   }
 
   // Get other accounts for comparison
-  const otherAccounts = ACCOUNT_DATA.filter(a => a.id !== account.id).slice(0, 2);
+  const otherAccounts = allAccounts.filter(a => a.id !== account.id).slice(0, 2);
 
   return (
     <>

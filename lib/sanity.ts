@@ -38,6 +38,55 @@ export interface SanityNewsArticle {
   relatedArticles?: SanityNewsArticle[]
 }
 
+// Type for Sanity savings account
+export interface SanitySavingsAccount {
+  _id: string
+  _type: 'savingsAccount'
+  institution: string
+  productName: string
+  slug: { current: string }
+  interestRate: string
+  monthlyFees: string
+  minBalance: string
+  cdic: boolean
+  eTransferLimit?: string
+  withdrawalLimit?: string
+  peakVerdict: string
+  detailedReview: string
+  fullReview?: string[]
+  bestFor: string
+  pros: string[]
+  cons: string[]
+  logoUrl?: string
+  affiliateUrl?: string
+  sortOrder?: number
+}
+
+// Type for Sanity credit card
+export interface SanityCreditCard {
+  _id: string
+  _type: 'creditCard'
+  institution: string
+  productName: string
+  slug: { current: string }
+  annualFee: string
+  rewardsRate: string
+  welcomeBonus?: string
+  interestRate: string
+  foreignTransactionFee?: string
+  insuranceBenefits?: string[]
+  peakVerdict: string
+  detailedReview: string
+  fullReview?: string[]
+  bestFor: string
+  pros: string[]
+  cons: string[]
+  logoUrl?: string
+  cardImageUrl?: string
+  affiliateUrl?: string
+  sortOrder?: number
+}
+
 // Queries
 export const queries = {
   // Get all news articles
@@ -76,5 +125,99 @@ export const queries = {
       summary,
       category
     }
+  }`,
+
+  // Get all savings accounts
+  allSavingsAccounts: `*[_type == "savingsAccount"] | order(sortOrder asc, interestRate desc) {
+    _id,
+    institution,
+    productName,
+    slug,
+    interestRate,
+    monthlyFees,
+    minBalance,
+    cdic,
+    eTransferLimit,
+    withdrawalLimit,
+    peakVerdict,
+    detailedReview,
+    fullReview,
+    bestFor,
+    pros,
+    cons,
+    logoUrl,
+    affiliateUrl,
+    sortOrder
+  }`,
+
+  // Get single savings account by slug
+  savingsAccountBySlug: `*[_type == "savingsAccount" && slug.current == $slug][0] {
+    _id,
+    institution,
+    productName,
+    slug,
+    interestRate,
+    monthlyFees,
+    minBalance,
+    cdic,
+    eTransferLimit,
+    withdrawalLimit,
+    peakVerdict,
+    detailedReview,
+    fullReview,
+    bestFor,
+    pros,
+    cons,
+    logoUrl,
+    affiliateUrl,
+    sortOrder
+  }`,
+
+  // Get all credit cards
+  allCreditCards: `*[_type == "creditCard"] | order(sortOrder asc) {
+    _id,
+    institution,
+    productName,
+    slug,
+    annualFee,
+    rewardsRate,
+    welcomeBonus,
+    interestRate,
+    foreignTransactionFee,
+    insuranceBenefits,
+    peakVerdict,
+    detailedReview,
+    fullReview,
+    bestFor,
+    pros,
+    cons,
+    logoUrl,
+    cardImageUrl,
+    affiliateUrl,
+    sortOrder
+  }`,
+
+  // Get single credit card by slug
+  creditCardBySlug: `*[_type == "creditCard" && slug.current == $slug][0] {
+    _id,
+    institution,
+    productName,
+    slug,
+    annualFee,
+    rewardsRate,
+    welcomeBonus,
+    interestRate,
+    foreignTransactionFee,
+    insuranceBenefits,
+    peakVerdict,
+    detailedReview,
+    fullReview,
+    bestFor,
+    pros,
+    cons,
+    logoUrl,
+    cardImageUrl,
+    affiliateUrl,
+    sortOrder
   }`,
 }
