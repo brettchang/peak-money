@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TruthTable } from '../components/TruthTable';
 import { ReviewCards } from '../components/ReviewCards';
@@ -6,11 +6,14 @@ import { FAQ } from '../components/FAQ';
 import { NewsSection } from '../components/NewsSection';
 import { GeoSchema } from '../components/GeoSchema';
 import { SEO } from '../components/SEO';
-import { ACCOUNT_DATA, FAQ_EDITIONS } from '../constants';
+import { ACCOUNT_DATA, CREDIT_CARD_DATA, FAQ_EDITIONS } from '../constants';
 import { useNewsArticles } from '../lib/useNews';
+
+type ProductCategory = 'savings' | 'credit-cards';
 
 export const HomePage: React.FC = () => {
   const { articles } = useNewsArticles();
+  const [activeCategory, setActiveCategory] = useState<ProductCategory>('savings');
 
   // Get the featured article for the hero
   const heroArticle = articles.find(a => a.featured) || articles[0];
@@ -65,9 +68,43 @@ export const HomePage: React.FC = () => {
       {/* News Section - remaining articles */}
       {remainingArticles.length > 0 && <NewsSection articles={remainingArticles} />}
 
-      <TruthTable data={ACCOUNT_DATA} />
+      {/* Product Category Tabs */}
+      <section className="max-w-6xl mx-auto px-6 mb-8">
+        <div className="flex flex-wrap gap-3 justify-center">
+          <button
+            onClick={() => setActiveCategory('savings')}
+            className={`px-5 py-2 rounded-full font-sans text-sm transition-all ${
+              activeCategory === 'savings'
+                ? 'bg-peak-black text-white'
+                : 'bg-peak-gray text-peak-darkGray hover:bg-peak-black/10'
+            }`}
+          >
+            Savings Accounts
+          </button>
+          <button
+            onClick={() => setActiveCategory('credit-cards')}
+            className={`px-5 py-2 rounded-full font-sans text-sm transition-all ${
+              activeCategory === 'credit-cards'
+                ? 'bg-peak-black text-white'
+                : 'bg-peak-gray text-peak-darkGray hover:bg-peak-black/10'
+            }`}
+          >
+            Credit Cards
+          </button>
+        </div>
+      </section>
 
-      <ReviewCards data={ACCOUNT_DATA} />
+      <TruthTable
+        category={activeCategory}
+        savingsData={ACCOUNT_DATA}
+        creditCardData={CREDIT_CARD_DATA}
+      />
+
+      <ReviewCards
+        category={activeCategory}
+        savingsData={ACCOUNT_DATA}
+        creditCardData={CREDIT_CARD_DATA}
+      />
 
       <FAQ editions={FAQ_EDITIONS} />
     </>
