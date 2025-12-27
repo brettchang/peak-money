@@ -110,6 +110,32 @@ export interface SanityAnswer {
   sortOrder?: number
 }
 
+// Type for Sanity FAQ Edition
+export interface SanityFAQEdition {
+  _id: string
+  _type: 'faqEdition'
+  title: string
+  slug: { current: string }
+  description: string
+  date: string
+  sortOrder?: number
+  questions?: SanityFAQQuestion[]
+}
+
+// Type for Sanity FAQ Question
+export interface SanityFAQQuestion {
+  _id: string
+  _type: 'faqQuestion'
+  question: string
+  slug: { current: string }
+  edition?: { _id: string; title: string; slug: { current: string } }
+  answer: string
+  fullAnswer?: any[] // Portable Text blocks
+  relatedQuestions?: { _id: string; question: string; slug: { current: string } }[]
+  sources?: string[]
+  sortOrder?: number
+}
+
 // Helper to convert Portable Text blocks to plain text strings
 export function portableTextToStrings(blocks: any[] | undefined): string[] {
   if (!blocks) return []
@@ -310,6 +336,75 @@ export const queries = {
       question,
       slug,
       category
+    }
+  }`,
+
+  // Get all FAQ editions with their questions
+  allFAQEditions: `*[_type == "faqEdition"] | order(date desc, sortOrder asc) {
+    _id,
+    title,
+    slug,
+    description,
+    date,
+    sortOrder,
+    "questions": *[_type == "faqQuestion" && references(^._id)] | order(sortOrder asc) {
+      _id,
+      question,
+      slug,
+      answer,
+      fullAnswer,
+      sources,
+      sortOrder,
+      "relatedQuestions": relatedQuestions[]-> {
+        _id,
+        question,
+        slug
+      }
+    }
+  }`,
+
+  // Get single FAQ edition by slug with questions
+  faqEditionBySlug: `*[_type == "faqEdition" && slug.current == $slug][0] {
+    _id,
+    title,
+    slug,
+    description,
+    date,
+    sortOrder,
+    "questions": *[_type == "faqQuestion" && references(^._id)] | order(sortOrder asc) {
+      _id,
+      question,
+      slug,
+      answer,
+      fullAnswer,
+      sources,
+      sortOrder,
+      "relatedQuestions": relatedQuestions[]-> {
+        _id,
+        question,
+        slug
+      }
+    }
+  }`,
+
+  // Get single FAQ question by slug
+  faqQuestionBySlug: `*[_type == "faqQuestion" && slug.current == $slug][0] {
+    _id,
+    question,
+    slug,
+    answer,
+    fullAnswer,
+    sources,
+    sortOrder,
+    "edition": edition-> {
+      _id,
+      title,
+      slug
+    },
+    "relatedQuestions": relatedQuestions[]-> {
+      _id,
+      question,
+      slug
     }
   }`,
 }

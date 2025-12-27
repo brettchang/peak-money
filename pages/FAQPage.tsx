@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown, ChevronRight, Calendar, ArrowRight } from 'lucide-react';
+import { ChevronDown, ChevronRight, Calendar, ArrowRight, Loader2 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { FAQPageSchema } from '../components/FAQPageSchema';
-import { FAQ_EDITIONS } from '../constants';
+import { useFAQEditions } from '../lib/useFAQ';
 
 export const FAQPage: React.FC = () => {
-  const [activeEdition, setActiveEdition] = useState(FAQ_EDITIONS[0]?.id || '');
+  const { editions, loading } = useFAQEditions();
+  const [activeEdition, setActiveEdition] = useState('');
   const [openQuestions, setOpenQuestions] = useState<Set<string>>(new Set());
 
-  const currentEdition = FAQ_EDITIONS.find(e => e.id === activeEdition) || FAQ_EDITIONS[0];
+  // Set active edition when editions load
+  useEffect(() => {
+    if (editions.length > 0 && !activeEdition) {
+      setActiveEdition(editions[0].id);
+    }
+  }, [editions, activeEdition]);
+
+  const currentEdition = editions.find(e => e.id === activeEdition) || editions[0];
 
   const toggleQuestion = (questionId: string) => {
     setOpenQuestions(prev => {
@@ -23,12 +31,20 @@ export const FAQPage: React.FC = () => {
     });
   };
 
-  if (!FAQ_EDITIONS || FAQ_EDITIONS.length === 0) {
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="animate-spin text-peak-darkGray" size={32} />
+      </div>
+    );
+  }
+
+  if (!editions || editions.length === 0) {
     return null;
   }
 
   // Collect all questions for FAQ schema
-  const allQuestions = FAQ_EDITIONS.flatMap(edition =>
+  const allQuestions = editions.flatMap(edition =>
     edition.questions.map(q => ({ question: q.question, answer: q.answer }))
   );
 
@@ -56,7 +72,7 @@ export const FAQPage: React.FC = () => {
       {/* Edition Selector */}
       <section className="max-w-4xl mx-auto px-6 pb-8">
         <div className="flex flex-wrap gap-3 justify-center">
-          {FAQ_EDITIONS.map((edition) => (
+          {editions.map((edition) => (
             <button
               key={edition.id}
               onClick={() => setActiveEdition(edition.id)}
@@ -138,7 +154,7 @@ export const FAQPage: React.FC = () => {
             Browse All Editions
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {FAQ_EDITIONS.map((edition) => (
+            {editions.map((edition) => (
               <div
                 key={edition.id}
                 className={`bg-white rounded-lg p-6 shadow-sm border transition-all hover:shadow-md ${

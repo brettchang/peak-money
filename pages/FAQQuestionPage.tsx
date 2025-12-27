@@ -1,9 +1,9 @@
 import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Calendar, BookOpen } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Calendar, BookOpen, Loader2 } from 'lucide-react';
 import { SEO } from '../components/SEO';
 import { BreadcrumbSchema } from '../components/BreadcrumbSchema';
-import { FAQ_EDITIONS } from '../constants';
+import { useFAQEdition, useFAQEditions } from '../lib/useFAQ';
 import { Question, FAQEdition } from '../types';
 
 // Schema.org FAQPage markup for individual question
@@ -38,8 +38,21 @@ const FAQQuestionSchema: React.FC<{ question: Question; edition: FAQEdition }> =
 export const FAQQuestionPage: React.FC = () => {
   const { editionSlug, questionSlug } = useParams<{ editionSlug: string; questionSlug: string }>();
 
-  // Find the edition and question
-  const edition = FAQ_EDITIONS.find(e => e.slug === editionSlug);
+  // Fetch edition and all editions for related questions
+  const { edition, loading: editionLoading } = useFAQEdition(editionSlug || '');
+  const { editions: allEditions, loading: editionsLoading } = useFAQEditions();
+
+  const loading = editionLoading || editionsLoading;
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="animate-spin text-peak-darkGray" size={32} />
+      </div>
+    );
+  }
+
+  // Find the question within the edition
   const question = edition?.questions.find(q => q.slug === questionSlug);
 
   if (!edition || !question) {
@@ -54,7 +67,7 @@ export const FAQQuestionPage: React.FC = () => {
   // Get related questions from all editions
   const relatedQuestions = question.relatedQuestions
     ?.map(relId => {
-      for (const ed of FAQ_EDITIONS) {
+      for (const ed of allEditions) {
         const found = ed.questions.find(q => q.id === relId);
         if (found) return { question: found, edition: ed };
       }
