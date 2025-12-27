@@ -29,38 +29,37 @@ export const HomePage: React.FC = () => {
 
       {/* Hero - Featured News Article */}
       {heroArticle && (
-        <Link to={`/news/${heroArticle.slug}`} className="block group">
-          <section className="relative w-full min-h-[70vh] flex items-end">
-            {/* Background Image */}
+        <section className="max-w-4xl mx-auto px-6 pt-12 pb-16">
+          <Link to={`/news/${heroArticle.slug}`} className="block group">
+            {/* Image */}
             {heroArticle.imageUrl && (
-              <div className="absolute inset-0">
+              <div className="relative aspect-[16/9] mb-8 overflow-hidden rounded-lg">
                 <img
                   src={heroArticle.imageUrl}
                   alt={heroArticle.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-peak-black via-peak-black/50 to-transparent" />
               </div>
             )}
             {/* Content */}
-            <div className="relative z-10 max-w-4xl mx-auto px-6 pb-16 pt-32 w-full">
-              <span className="inline-block text-xs font-sans font-bold uppercase tracking-widest text-peak-mint bg-peak-black/80 px-3 py-1 mb-6">
+            <div>
+              <span className="inline-block text-xs font-sans font-bold uppercase tracking-widest text-peak-darkGray mb-4">
                 {heroArticle.category}
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight group-hover:underline decoration-2 underline-offset-4">
+              <h1 className="text-4xl md:text-5xl font-serif text-peak-black mb-4 leading-tight group-hover:underline decoration-2 underline-offset-4">
                 {heroArticle.title}
               </h1>
-              <p className="text-xl md:text-2xl text-white/80 font-serif italic max-w-2xl mb-6">
+              <p className="text-xl text-peak-darkGray font-serif italic max-w-2xl mb-4">
                 {heroArticle.summary}
               </p>
-              <div className="flex items-center text-sm font-sans uppercase tracking-widest text-white/60">
+              <div className="flex items-center text-sm font-sans uppercase tracking-widest text-peak-darkGray/60">
                 <span>By {heroArticle.author}</span>
                 <span className="mx-3">•</span>
                 <span>{heroArticle.date}</span>
               </div>
             </div>
-          </section>
-        </Link>
+          </Link>
+        </section>
       )}
 
       {/* News Section - remaining articles */}
